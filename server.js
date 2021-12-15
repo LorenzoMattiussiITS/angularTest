@@ -1,21 +1,10 @@
 const express = require('express');
 const app = express();
-const path = require('path');
-const port = process.env.PORT || 8080;
-const server = require('http').Server(app);
 
-app.use(express.static(__dirname));
+app.use(express.static('./dist/my-first-project'));
 
+app.get('/*', (req, res) =>
+  res.sendFile('index.html', {root: 'dist/my-first-project/'}),
+);
 
-server.listen(port, function() {
-  console.log("App running on port " + port);
-})
-
-
-app.get('', function(req, res) {
-  res.sendFile(path.join(__dirname, 'src', 'index.html'));
-});
-
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, 'src', 'index.html'));
-});
+app.listen(process.env.PORT || 8080);
