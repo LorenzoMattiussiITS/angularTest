@@ -1,6 +1,21 @@
 const express = require('express');
-const path = require('path');
 const app = express();
-app.get('/*', function(req,res) {
-  res.sendFile(path.join(__dirname + '/src/index.html'));});
-app.listen(process.env.PORT || 8080);
+const path = require('path');
+const port = process.env.PORT || 8000;
+const server = require('http').Server(app);
+
+app.use(express.static(__dirname));
+
+
+server.listen(port, function() {
+  console.log("App running on port " + port);
+})
+
+
+app.get('', function(req, res) {
+  res.sendFile(path.join(__dirname, 'src', 'index.html'));
+});
+
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, 'src', 'index.html'));
+});
